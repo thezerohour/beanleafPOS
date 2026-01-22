@@ -1,0 +1,31 @@
+{
+  "name": "beanleaf-pos",
+  "version": "1.0.0",
+  "description": "A TypeScript-based Telegram bot that functions as a point-of-sale (POS) platform",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "ts-node src/main.ts",
+    "watch": "tsc -w"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "pos",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "google-auth-library": "^10.5.0",
+    "google-spreadsheet": "^4.1.2",
+    "telegraf": "^4.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.16",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

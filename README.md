@@ -23,7 +23,8 @@ A feature-rich Telegram bot that serves as a complete point-of-sale (POS) system
 
 ## Requirements
 
-- Python 3.8 or higher
+- Node.js 18.x or higher
+- TypeScript 5.x
 - Telegram Bot Token (get from [@BotFather](https://t.me/botfather))
 - Google account with access to Google Sheets
 
@@ -34,18 +35,12 @@ A feature-rich Telegram bot that serves as a complete point-of-sale (POS) system
 cd beanleafPOS
 ```
 
-### 2. Create a virtual environment
+### 2. Install dependencies
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+npm install
 ```
 
-### 3. Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Set up Google Sheets (IMPORTANT!)
+### 3. Set up Google Sheets (IMPORTANT!)
 
 Follow the detailed guide in [GOOGLE_SHEETS_SETUP.md](GOOGLE_SHEETS_SETUP.md) to:
 - Create a Google Sheet
@@ -59,7 +54,7 @@ Follow the detailed guide in [GOOGLE_SHEETS_SETUP.md](GOOGLE_SHEETS_SETUP.md) to
 4. Share the sheet with the service account email
 5. Place `credentials.json` in the project root
 
-### 5. Configure environment variables
+### 4. Configure environment variables
 ```bash
 cp .env.example .env
 ```
@@ -72,9 +67,19 @@ GOOGLE_CREDENTIALS_FILE=credentials.json
 ADMIN_USER_ID=your_telegram_user_id
 ```
 
+### 5. Build the project
+```bash
+npm run build
+```
+
 ### 6. Run the bot
 ```bash
-python bot/main.py
+npm start
+```
+
+Or for development with auto-reload:
+```bash
+npm run dev
 ```
 
 The bot will automatically create necessary worksheets in your Google Sheet on first run!
@@ -83,44 +88,42 @@ The bot will automatically create necessary worksheets in your Google Sheet on f
 
 ### Customer Commands
 - `/start` - Start the bot and view main menu
-- `/browse` - Browse available products
-- `/cart` - View your shopping cart
-- `/checkout` - Complete your order
+- Browse available products
+- View your shopping cart
+- Complete your order
 
 ### Admin Commands
-- `/admin` - Access admin panel
-- `/addproduct` - Add a new product
-- `/editproduct` - Edit existing product
-- `/deleteproduct` - Remove a product
-- `/sales` - View sales statistics
-- `/inventory` - Manage inventory
+- Access admin panel
+- Add/edit products
+- Manage order queue
+- View sales statistics
 
 ## Project Structure
 
 ```
 beanleafPOS/
-├── bot/
-│   ├── __init__.py
-│   ├── main.py              # Main bot application
+├── src/
+│   ├── main.ts              # Main bot application
 │   ├── handlers/
-│   │   ├── __init__.py
-│   │   ├── admin.py         # Admin command handlers
-│   │   ├── customer.py      # Customer command handlers
-│   │   └── orders.py        # Order processing handlers
+│   │   ├── index.ts
+│   │   ├── admin.ts         # Admin command handlers
+│   │   ├── customer.ts      # Customer command handlers
+│   │   └── orders.ts        # Order processing handlers
 │   ├── models/
-│   │   ├── __init__.py
-│   │   ├── database.py      # Database setup
-│   │   ├── product.py       # Product model
-│   │   ├── order.py         # Order model
-│   │   └── user.py          # User model
+│   │   ├── index.ts
+│   │   ├── database.ts      # Database setup
+│   │   ├── product.ts       # Product model
+│   │   ├── order.ts         # Order model
+│   │   └── user.ts          # User model
 │   └── utils/
-│       ├── __init__.py
-│       ├── keyboards.py     # Inline keyboard layouts
-│       └── helpers.py       # Helper functions
-├── data/                    # Database storage
+│       ├── index.ts
+│       ├── keyboards.ts     # Inline keyboard layouts
+│       └── helpers.ts       # Helper functions
+├── dist/                    # Compiled JavaScript
 ├── .env.example
 ├── .gitignore
-├── requirements.txt
+├── package.json
+├── tsconfig.json
 └── README.md
 ```
 
@@ -131,8 +134,16 @@ To contribute or modify the bot:
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+4. Test thoroughly with `npm run dev`
+5. Build with `npm run build`
+6. Submit a pull request
+
+## Scripts
+
+- `npm run build` - Compile TypeScript to JavaScript
+- `npm start` - Run the compiled bot
+- `npm run dev` - Run in development mode with ts-node
+- `npm run watch` - Watch for changes and recompile
 
 ## License
 
